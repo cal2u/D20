@@ -13,11 +13,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var capturedImage: UIImageView!
+    @IBOutlet weak var captureButton: UIButton!
     
     var captureSession: AVCaptureSession?
     var stillImageOutput: AVCaptureStillImageOutput?
     var previewLayer: AVCaptureVideoPreviewLayer?
     var takingPhoto = true
+    var numPhotos = 0
+    var pixelArray:UnsafeMutablePointer<UInt8>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,10 +68,17 @@ class ViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         previewLayer!.frame = capturedImage.bounds;
+        previewLayer!.position = capturedImage.layer.position
     }
     
     @IBAction func didPressTakePhoto(sender: UIButton) {
-        
+        if (self.numPhotos == 3) {
+            self.previewLayer!.hidden = false
+            self.captureButton.setTitle("Capture Photo!",forState: UIControlState.Normal)
+            self.numPhotos = 0
+            return
+            
+        }
         if let videoConnection = stillImageOutput!.connectionWithMediaType(AVMediaTypeVideo) {
             videoConnection.videoOrientation = AVCaptureVideoOrientation.Portrait
             stillImageOutput?.captureStillImageAsynchronouslyFromConnection(videoConnection, completionHandler: {(sampleBuffer, error) in
@@ -95,28 +105,37 @@ class ViewController: UIViewController {
                     //let pixels = data.bytes
                     
                     //var newPixels = UnsafeMutablePointer<UInt8>()
-                    
+                    if (self.numPhotos % 4 == 0) {
+                        print("Creating new Image");
+                        self.pixelArray?.destroy();
+                        self.pixelArray = UnsafeMutablePointer<UInt8>.alloc(imageSize);
+                        for index in 0.stride(to: imageSize, by: 4) {
+                            self.pixelArray![index] = 0
+                            self.pixelArray![index+1] = 0
+                            self.pixelArray![index+2] = 0
+                            self.pixelArray![index+3] = 255
+                        }
+
+                    }
+
                     for index in 0.stride(to: imageSize, by: 4) {
                         let r = newPixelArray[index] & 1
                         let g = newPixelArray[index + 1] & 1
                         let b = newPixelArray[index + 2] & 1
                         
-                        if newPixelArray[index] == 255 && newPixelArray[index+1] == 255 && newPixelArray[index+2] == 255 {
-                            newPixelArray[index] = 150
-                            newPixelArray[index + 1] = 0
-                            newPixelArray[index + 2] = 0
-                            
-                        }
 
                         let pixel = (r ^ b ^ g) * 255
-                        newPixelArray[index] = pixel
-                        newPixelArray[index + 1] = pixel
-                        newPixelArray[index + 2] = pixel
-                        newPixelArray[index + 3] = 255
+                        self.pixelArray![index] = self.pixelArray![index] ^ pixel
+                        self.pixelArray![index+1] = self.pixelArray![index+1] ^ pixel
+                        self.pixelArray![index+2] = self.pixelArray![index+2] ^ pixel
+                        self.pixelArray![index+3] = 255
+                        
                         
                     }
+                    print("Destroying camera pci")
+                    newPixelArray.destroy()
                     let bitmapInfo = CGImageGetBitmapInfo(imageRef)
-                    let provider = CGDataProviderCreateWithData(nil, newPixelArray, imageSize, nil)
+                    let provider = CGDataProviderCreateWithData(nil, self.pixelArray!, imageSize, nil)
                     
                     let newImageRef = CGImageCreate(width, height, CGImageGetBitsPerComponent(imageRef), CGImageGetBitsPerPixel(imageRef), bytesPerRow, colorSpace, bitmapInfo, provider, nil, false, CGColorRenderingIntent.RenderingIntentDefault)
                     
@@ -134,7 +153,13 @@ class ViewController: UIViewController {
                     
                     let image = UIImage(CGImage: cgImageRef!, scale: 1.0, orientation: UIImageOrientation.Right)
                     self.capturedImage.image = image*/
-                    self.previewLayer!.hidden = true
+                    
+                    if (self.numPhotos) % 4 == 2 {
+                        self.previewLayer!.hidden = true
+                        self.captureButton.setTitle("Clear",forState: UIControlState.Normal)
+                    }
+                    self.numPhotos = (self.numPhotos+1)%4;
+
 
                 }
             })

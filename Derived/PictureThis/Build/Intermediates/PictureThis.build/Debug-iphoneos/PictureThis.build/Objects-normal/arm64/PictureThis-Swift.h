@@ -120,10 +120,12 @@ SWIFT_CLASS("_TtC11PictureThis14ViewController")
 @interface ViewController : UIViewController
 @property (nonatomic, weak) IBOutlet UIView * __null_unspecified previewView;
 @property (nonatomic, weak) IBOutlet UIImageView * __null_unspecified capturedImage;
+@property (nonatomic, weak) IBOutlet UIButton * __null_unspecified captureButton;
 @property (nonatomic, strong) AVCaptureSession * __nullable captureSession;
 @property (nonatomic, strong) AVCaptureStillImageOutput * __nullable stillImageOutput;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer * __nullable previewLayer;
 @property (nonatomic) BOOL takingPhoto;
+@property (nonatomic) NSInteger numPhotos;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
 - (void)viewDidAppear:(BOOL)animated;
