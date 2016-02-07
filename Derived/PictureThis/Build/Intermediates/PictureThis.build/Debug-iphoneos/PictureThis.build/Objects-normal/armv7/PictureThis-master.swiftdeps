@@ -1,6 +1,0 @@
-version: "Apple Swift version 2.1.1 (swiftlang-700.1.101.15 clang-700.1.81)"
-options: "eeba43acded015bca3e963dd5b554478"
-build_time: [508108098, 841902000]
-inputs:
-  "/Users/caleb/Desktop/PictureThis/PictureThis/ViewController.swift": [508107751, 0]
-  "/Users/caleb/Desktop/PictureThis/PictureThis/AppDelegate.swift": [508056670, 0]
