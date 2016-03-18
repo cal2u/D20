@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Rando" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J6y-7h-G8V">
+                                <rect key="frame" x="0.0" y="20" width="600" height="510"/>
+                            </imageView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dhF-vy-yM1">
+                                <rect key="frame" x="20" y="538" width="560" height="2"/>
+                            </progressView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oQZ-yi-UN5">
+                                <rect key="frame" x="211" y="555" width="178" height="30"/>
+                                <state key="normal" title="Capture the Randomness!"/>
+                                <connections>
+                                    <action selector="didPressTakePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jMc-o5-dfb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="dhF-vy-yM1" secondAttribute="trailing" id="CqC-ao-zA2"/>
+                            <constraint firstItem="J6y-7h-G8V" firstAttribute="centerX" secondItem="oQZ-yi-UN5" secondAttribute="centerX" id="HcP-JQ-sPv"/>
+                            <constraint firstAttribute="trailing" secondItem="J6y-7h-G8V" secondAttribute="trailing" id="KcX-WM-kyH"/>
+                            <constraint firstItem="oQZ-yi-UN5" firstAttribute="top" secondItem="J6y-7h-G8V" secondAttribute="bottom" constant="25" id="Tle-XH-spW"/>
+                            <constraint firstItem="J6y-7h-G8V" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Vk1-qj-Ufx"/>
+                            <constraint firstItem="dhF-vy-yM1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="h8Z-TI-Qoq"/>
+                            <constraint firstItem="dhF-vy-yM1" firstAttribute="top" secondItem="J6y-7h-G8V" secondAttribute="bottom" constant="8" id="jb0-ct-lpi"/>
+                            <constraint firstItem="J6y-7h-G8V" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kJj-Gt-vwc"/>
+                            <constraint firstItem="oQZ-yi-UN5" firstAttribute="centerX" secondItem="dhF-vy-yM1" secondAttribute="centerX" id="rfI-4F-hRy"/>
+                            <constraint firstItem="J6y-7h-G8V" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-44" id="tQh-PO-dAu"/>
+                            <constraint firstItem="J6y-7h-G8V" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="ulp-Qo-Cd4"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="oQZ-yi-UN5" secondAttribute="bottom" constant="15" id="wfe-3d-dLg"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="kJj-Gt-vwc"/>
+                                <exclude reference="tQh-PO-dAu"/>
+                                <exclude reference="ulp-Qo-Cd4"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="Ee2-PI-Cwc"/>
+                    <connections>
+                        <outlet property="captureButton" destination="oQZ-yi-UN5" id="S1X-hX-Esx"/>
+                        <outlet property="capturedImage" destination="J6y-7h-G8V" id="Q4f-dC-V2F"/>
+                        <outlet property="previewView" destination="8bC-Xf-vdC" id="7om-85-jU4"/>
+                        <outlet property="progressBar" destination="dhF-vy-yM1" id="BPe-3i-gO0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-376" y="900"/>
+        </scene>
+    </scenes>
+</document>
